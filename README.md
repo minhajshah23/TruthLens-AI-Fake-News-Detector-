@@ -14,7 +14,9 @@ TruthLens is a web-based artificial intelligence application designed to analyze
 * **Search / Retrieval:** Tavily API 
 
 ## 👥 Team
-* **Arsalan Asghar** * **Minhaj Shah** ## ⚙️ Setup & Installation
+* **Arsalan Asghar**
+* **Minhaj Shah**
+* ## ⚙️ Setup & Installation
 1. Clone the repository to your local machine.
 2. Open the `index.html` file in any modern web browser.
 3. *Note: You will need to supply your own active Groq and Tavily API keys to run the analysis.*
