@@ -1,3 +1,26 @@
+# 🔍 TruthLens: AI-Powered Fake News Detector
+
+## 📖 Overview
+TruthLens is a web-based artificial intelligence application designed to analyze and verify the credibility of news articles and online claims. By cross-referencing user inputs against real-time web data and processing the context through a Large Language Model, TruthLens provides an immediate, AI-driven credibility assessment to combat misinformation.
+
+## ✨ Key Features
+* **Real-Time Web Retrieval:** Fetches up-to-date context and sources for any given claim.
+* **AI Credibility Analysis:** Evaluates the retrieved data against the original claim to detect bias, missing context, or factual inaccuracies.
+* **Responsive Web Interface:** A clean, accessible frontend for seamless user interaction.
+
+## 🛠️ Tech Stack
+* **Frontend:** HTML, CSS, JavaScript
+* **LLM Inference:** Groq API 
+* **Search / Retrieval:** Tavily API 
+
+## 👥 Team
+* **Arsalan Asghar** * **Minhaj Shah** ## ⚙️ Setup & Installation
+1. Clone the repository to your local machine.
+2. Open the `index.html` file in any modern web browser.
+3. *Note: You will need to supply your own active Groq and Tavily API keys to run the analysis.*
+
+---
+
 # ⚠️ Developer Notice (For Future Me)
 
 ## 📌 Project Dependency Warning
