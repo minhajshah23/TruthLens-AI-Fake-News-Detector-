@@ -1,0 +1,16 @@
+# ============================================================
+#  netlify.toml — Netlify project configuration
+# ============================================================
+
+[build]
+  publish = "public"
+  command = ""
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from   = "/api/analyze"
+  to     = "/.netlify/functions/analyze"
+  status = 200
