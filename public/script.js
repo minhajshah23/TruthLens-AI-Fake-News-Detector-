@@ -39,15 +39,37 @@
         applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
 
-    /* ── Word count ── */
+    /* ── Word count & Key Interactions ── */
     el.input.addEventListener('input', () => {
         hideError();
+        el.input.classList.remove('input-error'); // Remove red border immediately if typing
         const w = el.input.value.trim().split(/\s+/).filter(Boolean).length;
         el.wordCount.textContent = w + ' word' + (w !== 1 ? 's' : '');
     });
+    
+    // Updated Keydown Logic for Enter vs Ctrl+Enter
     el.input.addEventListener('keydown', e => {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); startAnalysis(); }
+        if (e.key === 'Enter') {
+            if (e.ctrlKey || e.metaKey) {
+                // Manually insert a line break on CTRL + ENTER
+                e.preventDefault();
+                const start = el.input.selectionStart;
+                const end = el.input.selectionEnd;
+                el.input.value = el.input.value.substring(0, start) + "\n" + el.input.value.substring(end);
+                
+                // Move cursor to after the new line
+                el.input.selectionStart = el.input.selectionEnd = start + 1;
+                
+                // Trigger input event to update word counts and remove errors
+                el.input.dispatchEvent(new Event('input')); 
+            } else if (!e.shiftKey) { 
+                // Run analysis on simple ENTER
+                e.preventDefault();
+                startAnalysis(); 
+            }
+        }
     });
+
     el.analyzeBtn.addEventListener('click', startAnalysis);
 
     /* ── Helpers ── */
@@ -212,8 +234,24 @@
 
         hideError();
         const wc = text.split(/\s+/).filter(Boolean).length;
-        if (wc === 0) { el.input.classList.add('shake'); el.input.focus(); return; }
-        if (wc < 2)   { showError('Please enter a full claim or sentence.'); el.input.classList.add('shake'); return; }
+        if (wc === 0) { 
+            // Trigger new error class and shake
+            el.input.classList.add('input-error'); 
+            el.input.focus(); 
+            
+            // Remove the class after the animation completes so it can be re-triggered
+            setTimeout(() => {
+                el.input.classList.remove('input-error');
+            }, 500);
+            
+            return; 
+        }
+        if (wc < 2)   { 
+            showError('Please enter a full claim or sentence.'); 
+            el.input.classList.add('input-error'); 
+            setTimeout(() => el.input.classList.remove('input-error'), 500);
+            return; 
+        }
 
         const heuristics = runHeuristics(text);
 

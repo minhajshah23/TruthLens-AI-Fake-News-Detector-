@@ -6,127 +6,165 @@
     <title>TruthLens PRO — AI Credibility Engine</title>
     <link rel="icon" type="image/png" href="img/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="orb-right"></div>
 
-    <!-- Header -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+
     <header>
-        <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
-            <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-        </button>
-
-        <div class="logo-mark">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="M21 21l-4.35-4.35"/>
-                <path d="M11 8v3l2 2"/>
-            </svg>
+        <div class="header-inner">
+            <div class="wordmark">
+                <div class="wordmark-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                        <path d="M11 8v3l2 2"/>
+                    </svg>
+                </div>
+                <span class="wordmark-text">TruthLens</span>
+                <span class="pro-chip">PRO</span>
+            </div>
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+                <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
         </div>
 
-        <h1>TruthLens <span class="pro-badge">PRO</span></h1>
-        <p class="tagline">AI-powered credibility analysis for news & claims</p>
-
+        <div class="hero">
+            <div class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                AI-Powered Credibility Analysis
+            </div>
+            <h1 class="hero-title">Know what's<br><em>actually</em> true.</h1>
+            <p class="hero-sub">Paste any news headline, claim, or article. Our engine cross-references live web sources and delivers a forensic credibility verdict in seconds.</p>
+        </div>
     </header>
 
-    <!-- Main -->
     <main>
-        <div class="card input-card">
-            <label class="input-label" for="claimInput">Claim or Article Text</label>
-            <textarea id="claimInput"
-                placeholder="Paste a news headline, claim, or article excerpt to analyze..."
-                spellcheck="false"></textarea>
-
-            <div class="input-footer">
-                <span class="word-count" id="wordCount">0 words</span>
-                <button class="analyze-btn" id="analyzeBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+        <!-- Input -->
+        <div class="panel input-panel">
+            <div class="panel-label">
+                <span class="label-line"></span>
+                Claim or Article Text
+                <span class="label-line"></span>
+            </div>
+            <textarea id="claimInput" placeholder="Paste a news headline, claim, or article excerpt to analyze…" spellcheck="false"></textarea>
+            <div class="input-bar">
+                <span class="word-count" id="wordCount">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h12"/></svg>
+                    0 words
+                </span>
+                <button class="run-btn" id="analyzeBtn">
                     Run Analysis
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
             </div>
             <div class="error-msg" id="errorMsg"></div>
         </div>
 
+        <!-- Results -->
         <section id="results">
-            <!-- Score -->
-            <div class="card score-card">
-                <div class="score-badge" id="scoreBadge">
-                    <div class="score-number" id="scoreNumber">0</div>
-                    <div class="score-denom">/ 100</div>
+
+            <!-- Verdict banner -->
+            <div class="verdict-banner">
+                <div class="score-ring-wrap">
+                    <svg class="score-ring" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="ring-track" cx="60" cy="60" r="50" fill="none" stroke-width="8"/>
+                        <circle class="ring-fill" id="ringFill" cx="60" cy="60" r="50" fill="none" stroke-width="8"
+                            stroke-dasharray="314" stroke-dashoffset="314" stroke-linecap="round"
+                            transform="rotate(-90 60 60)"/>
+                    </svg>
+                    <div class="score-center">
+                        <div class="score-num" id="scoreNumber">0</div>
+                        <div class="score-label">/ 100</div>
+                    </div>
                 </div>
-                <div class="score-details">
-                    <div class="verdict-label" id="verdictLabel">—</div>
-                    <div class="verdict-desc"  id="verdictDesc">—</div>
+                <div class="verdict-info">
+                    <div class="verdict-tag" id="verdictLabel">—</div>
+                    <div class="verdict-headline" id="verdictDesc">—</div>
+                    <div class="verdict-powered">
+                        <span>Analysed by</span>
+                        <span class="powered-chip">Groq AI</span>
+                        <span>+</span>
+                        <span class="powered-chip">Tavily Search</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Analysis grid -->
-            <div class="analysis-grid">
-                <div class="card">
-                    <div class="card-title">AI Reasoning <span class="tag">Groq</span></div>
-                    <ul class="item-list" id="reasonsList"></ul>
+            <!-- Two-column grid -->
+            <div class="result-grid">
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        AI Reasoning
+                        <span class="head-badge">Groq</span>
+                    </div>
+                    <ul class="finding-list" id="reasonsList"></ul>
                 </div>
-                <div class="card">
-                    <div class="card-title">Signal Detection</div>
-                    <ul class="item-list" id="signalsList"></ul>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        Signal Detection
+                    </div>
+                    <ul class="finding-list" id="signalsList"></ul>
                 </div>
+
             </div>
 
             <!-- Sources -->
-            <div class="card sources-card">
-                <div class="card-title">
+            <div class="panel sources-panel">
+                <div class="panel-head">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                     Web Sources
-                    <span class="tag" id="sourceCount">—</span>
+                    <span class="head-badge" id="sourceCount">—</span>
                 </div>
-                <div class="source-grid" id="sourceGrid"></div>
+                <div class="source-row" id="sourceGrid"></div>
             </div>
 
             <!-- Disclaimer -->
             <div class="disclaimer">
-                <strong>Note:</strong> AI-generated credibility estimate.
-                Always verify important claims with primary sources before sharing.
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                AI-generated credibility estimate. Always verify important claims with primary sources before sharing.
             </div>
+
         </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <p>© 2026 TruthLens Project &nbsp;·&nbsp; Powered by Groq AI + Tavily Search</p>
-        <p style="margin-top:10px; display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
-            <span style="opacity:0.5; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase;">Built by</span>
-            <a href="arsalan.html" style="color:var(--accent); text-decoration:none; font-weight:600; font-size:0.875rem; transition:opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">Arsalan Asghar</a>
-            <span style="opacity:0.3;">·</span>
-            <a href="minhaj.html"  style="color:var(--accent); text-decoration:none; font-weight:600; font-size:0.875rem; transition:opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">Minhaj Shah</a>
-        </p>
+        <div class="footer-inner">
+            <div class="footer-brand">TruthLens PRO &copy; 2026</div>
+            <div class="footer-divider"></div>
+            <div class="footer-credits">
+                Built by
+                <a href="arsalan.html">Arsalan Asghar</a>
+                <span>&amp;</span>
+                <a href="minhaj.html">Minhaj Shah</a>
+            </div>
+        </div>
     </footer>
 
     <!-- Loading overlay -->
     <div id="loading">
-        <div class="loading-card">
-            <div class="spinner-wrap">
-                <div class="ring ring-outer"></div>
-                <div class="ring ring-inner"></div>
-                <div class="spinner-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path d="M21 21l-4.35-4.35"/>
-                    </svg>
-                </div>
+        <div class="loading-modal">
+            <div class="loading-spinner">
+                <div class="spin-outer"></div>
+                <div class="spin-inner"></div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="spin-icon">
+                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
             </div>
             <div class="loading-title">Analyzing Claim</div>
-            <div class="loading-status" id="loadingStatus">Initializing...</div>
-            <div class="progress-track">
-                <div class="progress-fill" id="progressFill"></div>
+            <div class="loading-status" id="loadingStatus">Initializing…</div>
+            <div class="loading-bar">
+                <div class="loading-fill" id="progressFill"></div>
             </div>
         </div>
     </div>
